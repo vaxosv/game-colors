@@ -52,12 +52,6 @@ function objects() {
 
 
 function logic() {
-    // if (goOn) {
-    //     fill(20)
-    //     text("game ower", 100, 100)
-    // } else {
-    //     text("do it", 100, 100)
-    // }
 
     if (fromtop >= (windowHeight - 300) && tuchCount != wallcolor) {
         console.log("wavage");
