@@ -35,7 +35,7 @@ function mainAnimation() {
         coin.play()
         fromtop = 0;
         score++;
-        speed += 0.3;
+        speed += 0.2;
         wallcolor = Math.floor(random(0, 2))
         // console.log(wallcolor);
     }
