@@ -7,6 +7,8 @@ let wallcolor = 0;
 let score = 0;
 let highScore = 0;
 let speed = 2;
+let userW;
+let userH;
 let colors = [
     [255, 0, 0],
     [0, 255, 0],
@@ -16,23 +18,21 @@ let colors = [
 function setup() {
     coin = loadSound('./assets/picked-coin-echo-2.wav');
     gower = loadSound('./assets/8-bit-game-over.wav');
+    userW = (windowWidth / 100) * 20;
+    userH = (windowWidth / 100) * 20;
     Cwidth = windowWidth;
     createCanvas(windowWidth, windowHeight);
     background(255, 204, 0);
 }
 
 function draw() {
-    //     objects()
-    //     mainAnimation();
-
-    //     logic()
     game();
 }
 
 function mainAnimation() {
     fromtop += speed;
     if (fromtop >= windowHeight) {
-        coin.play()
+        coin.play();
         fromtop = 0;
         score++;
         speed += 0.2;
@@ -51,13 +51,13 @@ function objects() {
     stroke('rgba(34, 34, 34, 0.3)');
     strokeWeight(2);
     fill(colors[tuchCount]);
-    rect((windowWidth / 2) - 50, windowHeight - 100, 100, 100);
+    rect((windowWidth / 2) - (userH / 2), windowHeight - userH, userW, userH);
     Score();
 }
 
 
 function logic() {
-    if (fromtop + Cheight >= (windowHeight - 100) && tuchCount != wallcolor) {
+    if (fromtop + Cheight >= (windowHeight - userH) && tuchCount != wallcolor) {
         textSize(30);
         fill(0);
         text("Game Over", windowWidth / 2 - 80, 100);
@@ -65,7 +65,7 @@ function logic() {
         score = 0;
         speed = 2;
         goOn = false;
-    } else if (fromtop >= (windowHeight - 100) && tuchCount === wallcolor) {
+    } else if (fromtop >= (windowHeight - userH) && tuchCount === wallcolor) {
         textSize(30);
         fill(0);
         goon = true;
@@ -126,19 +126,19 @@ button.addEventListener('touchstart', () => {
     }
 });
 
-var rate = 100;
-var lastClick = Date.now() - rate;
-var button = document.querySelector('html');
-button.addEventListener('click', () => {
-  if (Date.now() - lastClick >= rate) {
-     goOn = true;
-    tuchCount++;
-    if (tuchCount > 2) {
-        tuchCount = 0;
-    }
-    lastClick = Date.now();
-  }
-});
+// var rate = 100;
+// var lastClick = Date.now() - rate;
+// var button = document.querySelector('html');
+// button.addEventListener('click', () => {
+//   if (Date.now() - lastClick >= rate) {
+//      goOn = true;
+//     tuchCount++;
+//     if (tuchCount > 2) {
+//         tuchCount = 0;
+//     }
+//     lastClick = Date.now();
+//   }
+// });
 
 
 // class Wall {
