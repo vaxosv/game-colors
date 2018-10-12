@@ -11,6 +11,8 @@ let userW;
 let userH;
 let runsame = true;
 let CformL;
+let bubbles = []
+
 let colors = [
     [255, 0, 0],
     [0, 255, 0],
@@ -30,7 +32,7 @@ function setup() {
 
 function draw() {
     game();
-    
+
 }
 
 function mainAnimation() {
@@ -50,7 +52,7 @@ function objects() {
     fill(colors[wallcolor]);
     rect(0, fromtop, Cwidth, userH * 2);
     rect(CformL, fromtop, Cwidth, userH * 2);
-    
+
     // stroke('rgba(34, 34, 34, 0.3)');
     // strokeWeight(2);
     fill(colors[tuchCount]);
@@ -83,7 +85,7 @@ function game() {
         objects();
         mainAnimation();
         logic();
-        
+
     } else {
         background(255, 204, 0);
         ScoreSave();
@@ -108,10 +110,10 @@ function getsScore() {
 }
 
 function Score() {
-    textSize(20);
+    textSize(40);
     fill(240);
     noStroke();
-    text(score, 20, 30);
+    text(score, 30, 60);
 }
 
 function ScoreSave() {
@@ -133,34 +135,65 @@ function ScoreSave() {
 
 
 }
-let bubbles = []
+
+let shapes = [
+    Bubble,
+
+]
 
 function bgboobles() {
-    if (bubbles.length < 40){
-        var b = new Bubble(random(0, displayWidth), random(0, displayHeight), random(2, 10));
+    if (bubbles.length < 20) {
+        var b = new Bubble(random(0, displayWidth),
+            random(0, displayHeight),
+            random(0, 2));
         bubbles.push(b);
+        var c = new Coub(random(0, displayWidth),
+            random(0, displayHeight),
+            random(0, 2));
+        bubbles.push(c);
     };
-    
     for (let i = 0; i < bubbles.length; i++) {
         bubbles[i].update();
-        bubbles[i].display();   
+        bubbles[i].display();
     }
 }
 
-function Bubble(x, y) {
+function Bubble(x, y, t) {
     this.x = x;
     this.y = y;
+    this.t = t;
     this.direction = random(-0.1, 0.1);
-    this.diameter = random(4, 20)
+    this.diameter = random(4, 20);
 
     this.display = function () {
-        noStroke()
+        noStroke();
+        fill(255, 255, 255, 130);
         ellipse(this.x, this.y, this.diameter, this.diameter);
     };
     this.update = function () {
         this.x = this.x + this.direction;
         this.y = this.y + this.direction;
     };
+
+};
+
+function Coub(x, y, t) {
+    this.x = x;
+    this.y = y;
+    this.t = t;
+    this.direction = random(-0.1, 0.1);
+    this.diameter = random(4, 20);
+
+    this.display = function () {
+        noStroke();
+        fill(255, 255, 255, 130);
+        rect(this.x, this.y, this.diameter, this.diameter);
+    };
+    this.update = function () {
+        this.x = this.x + this.direction;
+        this.y = this.y + this.direction;
+    };
+
 };
 
 var rate = 100;
