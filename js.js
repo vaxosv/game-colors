@@ -2,7 +2,7 @@ let Cwidth;
 let Cheight = 200;
 let fromtop = -230;
 let tuchCount = 0;
-let goOn = true;
+let goOn = false; // chartvis mdgomareoba
 let wallcolor = 0;
 let score = 0;
 let highScore = 0;
@@ -30,6 +30,7 @@ function setup() {
 
 function draw() {
     game();
+    
 }
 
 function mainAnimation() {
@@ -39,18 +40,17 @@ function mainAnimation() {
         runsame = true;
         speed += 0.2;
         wallcolor = Math.floor(random(0, 3));
-        // console.log(wallcolor);
     }
 }
 
 function objects() {
-
     noStroke();
     background(255, 204, 0);
+    bgboobles()
     fill(colors[wallcolor]);
     rect(0, fromtop, Cwidth, userH * 2);
     rect(CformL, fromtop, Cwidth, userH * 2);
-
+    
     // stroke('rgba(34, 34, 34, 0.3)');
     // strokeWeight(2);
     fill(colors[tuchCount]);
@@ -65,7 +65,6 @@ function logic() {
         fill(0);
         text("Game Over", window.innerWidth / 2 - 80, 100);
         gower.play();
-        score = 0;
         speed = 2;
         goOn = false;
     } else if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH) && tuchCount == wallcolor) {
@@ -84,16 +83,19 @@ function game() {
         objects();
         mainAnimation();
         logic();
+        
     } else {
         background(255, 204, 0);
         ScoreSave();
         fromtop = -230;
         score = 0;
         textSize(30);
+        bubbles.splice(0, 22)
         fill(0);
         text("Game ower", window.innerWidth / 2 - 80, 100);
         text("Touch To play", window.innerWidth / 2 - 90, 200);
         text("high score: " + highScore, window.innerWidth / 2 - 80, 300);
+        runsame = true;
 
     }
 
@@ -113,31 +115,53 @@ function Score() {
 }
 
 function ScoreSave() {
-    // let localStorage = window.localStorage.getItem('localScore');
-    // if (localStorage && localStorage > highScore) {
-    //     highScore = localStorage;
-    // } else {
-    //     try {
-    //         window.localStorage.setItem('localScore', highScore);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    let localStorage = window.localStorage.getItem('localScore');
+    if (localStorage && localStorage > highScore) {
+        highScore = localStorage;
+    } else {
+        try {
+            window.localStorage.setItem('localScore', highScore);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    // if (score > highScore) {
-    //     highScore = score;
-    //     window.localStorage.setItem('localScore', highScore);
-    // }
+    if (score > highScore) {
+        highScore = score;
+        window.localStorage.setItem('localScore', highScore);
+    }
 
-    // console.log(localStorage);
 
 }
+let bubbles = []
 
+function bgboobles() {
+    if (bubbles.length < 40){
+        var b = new Bubble(random(0, displayWidth), random(0, displayHeight), random(2, 10));
+        bubbles.push(b);
+    };
+    
+    for (let i = 0; i < bubbles.length; i++) {
+        bubbles[i].update();
+        bubbles[i].display();   
+    }
+}
 
+function Bubble(x, y) {
+    this.x = x;
+    this.y = y;
+    this.direction = random(-0.1, 0.1);
+    this.diameter = random(4, 20)
 
-
-
-
+    this.display = function () {
+        noStroke()
+        ellipse(this.x, this.y, this.diameter, this.diameter);
+    };
+    this.update = function () {
+        this.x = this.x + this.direction;
+        this.y = this.y + this.direction;
+    };
+};
 
 var rate = 100;
 var lastClick = Date.now() - rate;
