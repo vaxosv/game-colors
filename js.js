@@ -1,6 +1,6 @@
 let Cwidth;
 let Cheight = 200;
-let fromtop = 0;
+let fromtop = -230;
 let tuchCount = 0;
 let goOn = true;
 let wallcolor = 0;
@@ -33,7 +33,7 @@ function mainAnimation() {
     fromtop += speed;
     if (fromtop >= window.innerHeight) {
         coin.play();
-        fromtop = 0;
+        fromtop = -230;
         score++;
         speed += 0.2;
         wallcolor = Math.floor(random(0, 3));
@@ -79,7 +79,7 @@ function game() {
         logic();
     } else {
         background(255, 204, 0);
-        fromtop = 0;
+        fromtop = -230;
         textSize(30);
         fill(0);
         text("Touch To play", window.innerWidth / 2 - 100, 100);
