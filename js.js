@@ -126,20 +126,6 @@ button.addEventListener('touchstart', () => {
     }
 });
 
-// var rate = 100;
-// var lastClick = Date.now() - rate;
-// var button = document.querySelector('html');
-// button.addEventListener('click', () => {
-//   if (Date.now() - lastClick >= rate) {
-//      goOn = true;
-//     tuchCount++;
-//     if (tuchCount > 2) {
-//         tuchCount = 0;
-//     }
-//     lastClick = Date.now();
-//   }
-// });
-
 
 // class Wall {
 //     constructor() {
