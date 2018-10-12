@@ -18,10 +18,10 @@ let colors = [
 function setup() {
     coin = loadSound('./assets/picked-coin-echo-2.wav');
     gower = loadSound('./assets/8-bit-game-over.wav');
-    userW = (windowWidth / 100) * 20;
-    userH = (windowWidth / 100) * 20;
-    Cwidth = windowWidth;
-    createCanvas(windowWidth, windowHeight);
+    userW = (window.innerWidth / 100) * 20;
+    userH = (window.innerWidth / 100) * 20;
+    Cwidth = window.innerWidth;
+    createCanvas(window.innerWidth, window.innerHeight + 10);
     background(255, 204, 0);
 }
 
@@ -31,12 +31,12 @@ function draw() {
 
 function mainAnimation() {
     fromtop += speed;
-    if (fromtop >= windowHeight) {
+    if (fromtop >= window.innerHeight) {
         coin.play();
         fromtop = 0;
         score++;
         speed += 0.2;
-        wallcolor = Math.floor(random(0, 2))
+        wallcolor = Math.floor(random(0, 3));
         // console.log(wallcolor);
     }
 }
@@ -46,26 +46,26 @@ function objects() {
     noStroke();
     background(255, 204, 0);
     fill(colors[wallcolor]);
-    rect(0, fromtop, Cwidth, Cheight);
+    rect(0, fromtop, Cwidth, userH * 2);
 
     stroke('rgba(34, 34, 34, 0.3)');
     strokeWeight(2);
     fill(colors[tuchCount]);
-    rect((windowWidth / 2) - (userH / 2), windowHeight - userH, userW, userH);
+    rect((window.innerWidth / 2) - (userH / 2), (window.innerHeight - userH) + 10 , userW, userH);
     Score();
 }
 
 
 function logic() {
-    if (fromtop + Cheight >= (windowHeight - userH) && tuchCount != wallcolor) {
+    if (fromtop + userH * 2  - 10 >= (window.innerHeight - userH) && tuchCount != wallcolor) {
         textSize(30);
         fill(0);
-        text("Game Over", windowWidth / 2 - 80, 100);
+        text("Game Over", window.innerWidth / 2 - 80, 100);
         gower.play();
         score = 0;
         speed = 2;
         goOn = false;
-    } else if (fromtop >= (windowHeight - userH) && tuchCount === wallcolor) {
+    } else if (fromtop >= (window.innerHeight - userH) && tuchCount === wallcolor) {
         textSize(30);
         fill(0);
         goon = true;
@@ -82,7 +82,7 @@ function game() {
         fromtop = 0;
         textSize(30);
         fill(0);
-        text("Touch To play", windowWidth / 2 - 100, 100);
+        text("Touch To play", window.innerWidth / 2 - 100, 100);
         // ScoreSave()
     }
 
