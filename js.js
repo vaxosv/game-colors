@@ -1,3 +1,4 @@
+let myFont;
 let Cwidth;
 let Cheight = 200;
 let fromtop = -230;
@@ -11,13 +12,20 @@ let userW;
 let userH;
 let runsame = true;
 let CformL;
+let r = 50,
+    g = 20,
+    b = 70;
 let bubbles = []
 
 let colors = [
-    [255, 0, 0],
-    [0, 255, 0],
-    [0, 0, 255]
+    [255, 107, 107],
+    [10, 189, 227],
+    [16, 172, 132]
 ];
+
+function preload() {
+    myFont = loadFont("./assets/zorque.regular.ttf");
+}
 
 function setup() {
     coin = loadSound('./assets/picked-coin-echo-2.wav');
@@ -27,7 +35,11 @@ function setup() {
     Cwidth = window.innerWidth / 2 - ((window.innerWidth / 100) * 15) - 20;
     CformL = window.innerWidth - Cwidth;
     createCanvas(window.innerWidth, window.innerHeight + 10);
-    background(255, 204, 0);
+    // background('#04BBD3');
+    background(r, g, b);
+    angleMode(DEGREES);
+    textFont(myFont);
+    smooth();
 }
 
 function draw() {
@@ -47,8 +59,9 @@ function mainAnimation() {
 
 function objects() {
     noStroke();
-    background(255, 204, 0);
-    bgboobles()
+    backgorundm();
+    bgboobles();
+    noStroke();
     fill(colors[wallcolor]);
     rect(0, fromtop, Cwidth, userH * 2);
     rect(CformL, fromtop, Cwidth, userH * 2);
@@ -65,7 +78,6 @@ function logic() {
     if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH) && tuchCount != wallcolor) {
         textSize(30);
         fill(0);
-        text("Game Over", window.innerWidth / 2 - 80, 100);
         gower.play();
         speed = 2;
         goOn = false;
@@ -87,16 +99,21 @@ function game() {
         logic();
 
     } else {
-        background(255, 204, 0);
+        background(r, g, b);
         ScoreSave();
         fromtop = -230;
         score = 0;
         textSize(30);
         bubbles.splice(0, 22)
         fill(0);
-        text("Game ower", window.innerWidth / 2 - 80, 100);
-        text("Touch To play", window.innerWidth / 2 - 90, 200);
-        text("high score: " + highScore, window.innerWidth / 2 - 80, 300);
+        fill(255)
+        textAlign(CENTER);
+        fill(230, 0, 0);
+        text("Game Over", window.innerWidth / 2, 100);
+        fill(230, 230, 0);
+        text("Touch To play", window.innerWidth / 2, 200);
+        fill(0, 230, 0);
+        text("high score: " + highScore, window.innerWidth / 2, 300);
         runsame = true;
 
     }
@@ -110,10 +127,11 @@ function getsScore() {
 }
 
 function Score() {
-    textSize(40);
-    fill(240);
+    smooth(255);
+    textSize(70);
+    fill(230);
     noStroke();
-    text(score, 30, 60);
+    text(score, 60, 80);
 }
 
 function ScoreSave() {
@@ -136,14 +154,44 @@ function ScoreSave() {
 
 }
 
-let shapes = [
-    Bubble,
+let add = +1;
+let add2 = 100;
+let add3 = 1;
 
-]
+
+function backgorundm() {
+    background(r, g, b);
+    // b++;
+    // b++
+    // r += add3;
+    // if(r >= 200){
+    //    add3 = -1
+    // }
+    // if(r <= 70){
+    //     add3 = +1
+    // }
+
+    g += add;
+    if (g >= 150) {
+        add = -0.05
+    }
+    if (g <= 40) {
+        add = +0.05
+    }
+
+    b += add2;
+    if (b >= 150) {
+        add2 = -0.05
+    }
+    if (b <= 40) {
+        add2 = +0.05
+    }
+
+}
 
 function bgboobles() {
     if (bubbles.length < 20) {
-        var b = new Bubble(random(0, displayWidth),
+        var b = new Triangular(random(0, displayWidth),
             random(0, displayHeight),
             random(0, 2));
         bubbles.push(b);
@@ -151,6 +199,10 @@ function bgboobles() {
             random(0, displayHeight),
             random(0, 2));
         bubbles.push(c);
+        var e = new Ex(random(0, displayWidth),
+            random(0, displayHeight),
+            random(0, 2));
+        bubbles.push(e);
     };
     for (let i = 0; i < bubbles.length; i++) {
         bubbles[i].update();
@@ -158,17 +210,32 @@ function bgboobles() {
     }
 }
 
-function Bubble(x, y, t) {
+function Triangular(x, y, t) {
     this.x = x;
     this.y = y;
     this.t = t;
+    this.angle = 0;
+    this.r = 0;
     this.direction = random(-0.1, 0.1);
-    this.diameter = random(4, 20);
+    this.size = random(2, 10);
 
     this.display = function () {
-        noStroke();
-        fill(255, 255, 255, 130);
-        ellipse(this.x, this.y, this.diameter, this.diameter);
+        push();
+        translate(this.x, this.y);
+        rotate(this.r)
+        noFill()
+        strokeWeight(4);
+        stroke('rgba(255,255,255,0.50)');
+        triangle(
+            -this.size,
+            +this.size,
+            0,
+            -this.size,
+            +this.size,
+            +this.size
+        );
+        pop();
+        this.r++;
     };
     this.update = function () {
         this.x = this.x + this.direction;
@@ -181,13 +248,21 @@ function Coub(x, y, t) {
     this.x = x;
     this.y = y;
     this.t = t;
+    this.r = 0;
     this.direction = random(-0.1, 0.1);
     this.diameter = random(4, 20);
 
     this.display = function () {
+        push();
         noStroke();
-        fill(255, 255, 255, 130);
-        rect(this.x, this.y, this.diameter, this.diameter);
+        translate(this.x, this.y);
+        rotate(this.r);
+        fill('rgba(255,255,255,0.30)')
+        rectMode(CENTER);
+        rect(0, 0, this.diameter, this.diameter);
+        pop();
+
+        this.r++;
     };
     this.update = function () {
         this.x = this.x + this.direction;
@@ -196,6 +271,69 @@ function Coub(x, y, t) {
 
 };
 
+function Ex(x, y, t) {
+    this.x = x;
+    this.y = y;
+    this.t = t;
+    this.r = 0;
+    this.direction = random(-0.1, 0.1);
+    this.diameter = random(4, 20);
+
+    this.display = function () {
+        push();
+        translate(this.x, this.y);
+        rotate(this.r);
+        noFill()
+        strokeWeight(4);
+        stroke('rgba(255,255,255,0.50)');
+        rectMode(CENTER);
+        rect(0, 0, this.diameter, this.diameter);
+        pop();
+
+        this.r++;
+    };
+    this.update = function () {
+        this.x = this.x + this.direction;
+        this.y = this.y + this.direction;
+    };
+
+};
+
+// let faerwerksarr = [];
+
+// function faerwerks() {
+//     console.log("weeee");
+//     if (faerwerksarr.length < 20) {
+//         let b = new Splesh(200,
+//             200,
+//             5);
+//         faerwerksarr.push(b);
+//     };
+//     for (let i = 0; i < faerwerksarr.length; i++) {
+//         faerwerksarr[i].update();
+//         faerwerksarr[i].display();
+//     }
+// }
+
+// function Splesh(x, y, s) {
+//     this.x = x;
+//     this.y = y;
+//     this.s = s;
+//     this.direction = random(-0.1, 0.1);
+//     this.diameter = random(4, 20);
+//     this.display = function () {
+//         noFill()
+//         strokeWeight(4);
+//         stroke('rgba(255,255,255,0.70)');
+//         ellipse(this.x, this.y, this.diameter, this.diameter);
+//     }
+
+//     this.update = function () {
+//         this.x = this.x + this.direction + 10;
+//         this.y = this.y + this.direction + 10;
+//     }
+// }
+
 var rate = 100;
 var lastClick = Date.now() - rate;
 var button = document.querySelector('html');
@@ -203,6 +341,7 @@ button.addEventListener('touchstart', () => {
     if (Date.now() - lastClick >= rate) {
         goOn = true;
         tuchCount++;
+        // faerwerks();
         if (tuchCount > 2) {
             tuchCount = 0;
         }
