@@ -1,9 +1,10 @@
 let myFont;
+let img;
 let Cwidth;
 let Cheight = 200;
 let fromtop = -230;
 let tuchCount = 0;
-let goOn = false; // chartvis mdgomareoba
+let goOn = true; // chartvis mdgomareoba
 let wallcolor = 0;
 let score = 0;
 let highScore = 0;
@@ -12,11 +13,11 @@ let userW;
 let userH;
 let runsame = true;
 let CformL;
+let logo_off = 0;
 let r = 50,
     g = 20,
     b = 70;
 let bubbles = []
-
 let colors = [
     [255, 107, 107],
     [10, 189, 227],
@@ -30,6 +31,7 @@ function preload() {
 function setup() {
     coin = loadSound('./assets/picked-coin-echo-2.wav');
     gower = loadSound('./assets/8-bit-game-over.wav');
+    img = loadImage('./assets/logo.png');
     userW = (window.innerWidth / 100) * 30 + 40;
     userH = (window.innerWidth / 100) * 30;
     Cwidth = window.innerWidth / 2 - ((window.innerWidth / 100) * 15) - 20;
@@ -43,10 +45,25 @@ function setup() {
 }
 
 function draw() {
-    game();
-
+    // logo()
+    // if (logo_off >= 300){
+        game();
+    // }
+    // logo_off++;
 }
-
+function logo() {
+    background(0);
+    fill(`rgba(255,255,255,${logo_off / 200})`)
+    rect(-1, -1, window.innerWidth + 1, window.innerHeight + 1);
+    image(img, window.innerWidth / 2 - 30 , window.innerHeight / 2 - 35, 70, 50)
+    textAlign(CENTER);
+    textSize(20);
+    fill(255)
+    text("light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
+    textAlign(RIGHT);
+    textSize(12);
+    text("enterteiment", window.innerWidth / 2 + 20, window.innerHeight / 2 + 70)
+}
 function mainAnimation() {
     fromtop += speed;
     if (fromtop >= window.innerHeight) {
