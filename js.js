@@ -7,30 +7,33 @@ let tuchCount = 0;
 let goOn = true; // chartvis mdgomareoba
 let wallcolor = 0;
 let score = 0;
+let cscore = 0;
 let highScore = 0;
 let speed = 2;
 let userW;
 let userH;
 let runsame = true;
 let CformL;
-let logo_off = 0;
-let fadeOut = 255;
+// let logo_off = 0;
+// let fadeOut = 255;
 let r = 50,
     g = 20,
     b = 70;
 let bubbles = []
 let colors = [
-    [255, 107, 107],
-    [10, 189, 227],
-    [16, 172, 132]
+    [231, 76, 60],
+    [41, 128, 185],
+    [39, 174, 96]
 ];
 
 function preload() {
     myFont = loadFont("./assets/zorque.regular.ttf");
+    // console.log("davamtavre");
+    
 }
 
 function setup() {
-    coin = loadSound('./assets/picked-coin-echo-2.wav');
+    coin = loadSound('./assets/glass-tap.wav');
     gower = loadSound('./assets/8-bit-game-over.wav');
     img = loadImage('./assets/logo.png');
     userW = (window.innerWidth / 100) * 30 + 40;
@@ -46,35 +49,36 @@ function setup() {
 }
 
 function draw() {
-    logo()
-    if (logo_off >= 500) {
+    // logo()
+    // if (logo_off >= 500) {
         game();
-    }
-    logo_off++;
-    fadeOut--;
+    // }
+    // logo_off++;
+    // fadeOut--;
 }
 
-function logo() {
-    background(r, g, b);
-    tint(255, logo_off);
-    image(img, window.innerWidth / 2 - 30, window.innerHeight / 2 - 35, 70, 50)
-    textAlign(CENTER);
-    textSize(20);
-    if (logo_off <= 255) {
-        fill(255, logo_off);
-    }
-    text("Light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
-    textAlign(RIGHT);
-    textSize(12);
-    text("games", window.innerWidth / 2 - 28, window.innerHeight / 2 + 70)
-}
+// function logo() {
+//     background(r, g, b);
+//     tint(255, logo_off);
+//     image(img, window.innerWidth / 2 - 30, window.innerHeight / 2 - 35, 70, 50)
+//     textAlign(CENTER);
+//     textSize(20);
+//     if (logo_off <= 255) {
+//         fill(255, logo_off);
+//     }
+
+//     text("Light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
+//     textAlign(RIGHT);
+//     textSize(12);
+//     text("games", window.innerWidth / 2 - 28, window.innerHeight / 2 + 70)
+// }
 
 function mainAnimation() {
     fromtop += speed;
     if (fromtop >= window.innerHeight) {
         fromtop = -230;
         runsame = true;
-        speed += 0.2;
+        speed += 0.5;
         wallcolor = Math.floor(random(0, 3));
     }
 }
@@ -119,7 +123,7 @@ function game() {
         objects();
         mainAnimation();
         logic();
-
+        cscore = score;
     } else {
         background(r, g, b);
         ScoreSave();
@@ -130,12 +134,12 @@ function game() {
         fill(0);
         fill(255)
         textAlign(CENTER);
-        fill(230, 0, 0);
-        text("Game Over", window.innerWidth / 2, 100);
+        fill(0, 200, 240);
+        text("Current score  " + cscore, window.innerWidth / 2, 100);
         fill(230, 230, 0);
-        text("Touch To play", window.innerWidth / 2, 200);
+        text("high score: " + highScore, window.innerWidth / 2, 200);
         fill(0, 230, 0);
-        text("high score: " + highScore, window.innerWidth / 2, 300);
+        text("Touch To play", window.innerWidth / 2, 300);
         runsame = true;
 
     }
