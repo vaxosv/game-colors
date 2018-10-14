@@ -14,6 +14,7 @@ let userH;
 let runsame = true;
 let CformL;
 let logo_off = 0;
+let fadeOut = 255;
 let r = 50,
     g = 20,
     b = 70;
@@ -36,7 +37,7 @@ function setup() {
     userH = (window.innerWidth / 100) * 30;
     Cwidth = window.innerWidth / 2 - ((window.innerWidth / 100) * 15) - 20;
     CformL = window.innerWidth - Cwidth;
-    createCanvas(window.innerWidth, window.innerHeight + 10);
+    createCanvas(window.innerWidth, window.innerHeight);
     // background('#04BBD3');
     background(r, g, b);
     angleMode(DEGREES);
@@ -45,25 +46,29 @@ function setup() {
 }
 
 function draw() {
-    // logo()
-    // if (logo_off >= 300){
+    logo()
+    if (logo_off >= 500) {
         game();
-    // }
-    // logo_off++;
+    }
+    logo_off++;
+    fadeOut--;
 }
+
 function logo() {
-    background(0);
-    fill(`rgba(255,255,255,${logo_off / 200})`)
-    rect(-1, -1, window.innerWidth + 1, window.innerHeight + 1);
-    image(img, window.innerWidth / 2 - 30 , window.innerHeight / 2 - 35, 70, 50)
+    background(r, g, b);
+    tint(255, logo_off);
+    image(img, window.innerWidth / 2 - 30, window.innerHeight / 2 - 35, 70, 50)
     textAlign(CENTER);
     textSize(20);
-    fill(255)
+    if (logo_off <= 255) {
+        fill(255, logo_off);
+    }
     text("light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
     textAlign(RIGHT);
     textSize(12);
-    text("enterteiment", window.innerWidth / 2 + 20, window.innerHeight / 2 + 70)
+    text("gmes", window.innerWidth / 2 - 36, window.innerHeight / 2 + 70)
 }
+
 function mainAnimation() {
     fromtop += speed;
     if (fromtop >= window.innerHeight) {
@@ -148,7 +153,7 @@ function Score() {
     textSize(70);
     fill(230);
     noStroke();
-    text(score, 60, 80);
+    text(score, 100, 80);
 }
 
 function ScoreSave() {
