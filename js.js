@@ -63,10 +63,10 @@ function logo() {
     if (logo_off <= 255) {
         fill(255, logo_off);
     }
-    text("light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
+    text("Light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
     textAlign(RIGHT);
     textSize(12);
-    text("gmes", window.innerWidth / 2 - 36, window.innerHeight / 2 + 70)
+    text("games", window.innerWidth / 2 - 28, window.innerHeight / 2 + 70)
 }
 
 function mainAnimation() {
@@ -153,7 +153,8 @@ function Score() {
     textSize(70);
     fill(230);
     noStroke();
-    text(score, 100, 80);
+    textAlign(LEFT);
+    text(score, 30, 80);
 }
 
 function ScoreSave() {
