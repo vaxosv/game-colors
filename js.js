@@ -245,8 +245,8 @@ function Triangular(x, y, t) {
     this.display = function () {
         push();
         translate(this.x, this.y);
-        rotate(this.r)
-        noFill()
+        rotate(this.r);
+        noFill();
         strokeWeight(4);
         stroke('rgba(255,255,255,0.50)');
         triangle(
@@ -371,15 +371,3 @@ button.addEventListener('touchstart', () => {
         lastClick = Date.now();
     }
 });
-
-
-// class Wall {
-//     constructor() {
-
-//     }
-
-//     draw() {
-//         fill(colors[wallcolor]);
-//         rect(0, fromtop, Cwidth, Cheight);
-//     }
-// }
