@@ -15,7 +15,7 @@ let userH;
 let runsame = true;
 let CformL;
 // let logo_off = 0;
-// let fadeOut = 255;
+// let fadeOut = 255 + 255;
 let r = 50,
     g = 20,
     b = 70;
@@ -50,11 +50,13 @@ function setup() {
 
 function draw() {
     // logo()
-    // if (logo_off >= 500) {
-        game();
+    // if (logo_off >= 100) {
+    game();
     // }
-    // logo_off++;
-    // fadeOut--;
+    // logo_off += 1;
+    // fadeOut -= 1;
+    // console.log(logo_off);
+
 }
 
 // function logo() {
@@ -65,6 +67,12 @@ function draw() {
 //     textSize(20);
 //     if (logo_off <= 255) {
 //         fill(255, logo_off);
+//         console.log("naklebia");
+//     }
+//     if (logo_off > 255) {
+//         console.log("metia");   
+//         console.log(fadeOut);
+//         fill(255, fadeOut);
 //     }
 
 //     text("Light Stream", window.innerWidth / 2, window.innerHeight / 2 + 50)
