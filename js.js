@@ -10,6 +10,7 @@ let score = 0;
 let cscore = 0;
 let highScore = 0;
 let speed = 2;
+let bgspeed = 0.8;
 let userW;
 let userH;
 let runsame = true;
@@ -21,9 +22,9 @@ let r = 50,
     b = 70;
 let bubbles = []
 let colors = [
-    [231, 76, 60],
-    [41, 128, 185],
-    [39, 174, 96]
+    [231, 76, 60,240],
+    [41, 128, 185,240],
+    [39, 174, 96,240]
 ];
 
 function preload() {
@@ -103,6 +104,7 @@ function objects() {
     // stroke('rgba(34, 34, 34, 0.3)');
     // strokeWeight(2);
     fill(colors[tuchCount]);
+    // fill(colors[wallcolor]);
     rect((window.innerWidth / 2) - (userW / 2), (window.innerHeight - userH) + 10, userW, userH);
     Score();
 }
@@ -115,9 +117,9 @@ function logic() {
         gower.play();
         speed = 2;
         goOn = false;
-    } else if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH -speed) && tuchCount == wallcolor) {
+    } else if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH - (speed * 2)) && tuchCount == wallcolor) {
         if (runsame) {
-            console.log("window height: " + (window.innerHeight - userH),"fromtop: " + (fromtop + userH * 2 - 11));
+            console.log("window height: " + (window.innerHeight - userH), "fromtop: " + (fromtop + userH * 2 - 11), "speed: " + speed);
             getsScore();
         }
     } else if (fromtop >= (window.innerHeight - userH) && tuchCount === wallcolor) {
@@ -252,8 +254,8 @@ function Triangular(x, y, t) {
     this.t = t;
     this.angle = 0;
     this.r = 0;
-    this.dx = random(-0.1, 0.1);
-    this.dy = random(-0.1, 0.1);
+    this.dx = random(-bgspeed, bgspeed);
+    this.dy = random(-bgspeed, bgspeed);
     this.size = random(2, 10);
 
     this.display = function () {
@@ -293,8 +295,8 @@ function Coub(x, y, t) {
     this.y = y;
     this.t = t;
     this.r = 0;
-    this.dx = random(-0.1, 0.1);
-    this.dy = random(-0.1, 0.1);
+    this.dx = random(-bgspeed, bgspeed);
+    this.dy = random(-bgspeed, bgspeed);
     this.diameter = random(4, 20);
 
     this.display = function () {
@@ -327,8 +329,8 @@ function Ex(x, y, t) {
     this.y = y;
     this.t = t;
     this.r = 0;
-    this.dx = random(-0.1, 0.1);
-    this.dy = random(-0.1, 0.1);
+    this.dx = random(-bgspeed, bgspeed);
+    this.dy = random(-bgspeed, bgspeed);
     this.diameter = random(4, 20);
 
     this.display = function () {
