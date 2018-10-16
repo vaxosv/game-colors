@@ -115,9 +115,9 @@ function logic() {
         gower.play();
         speed = 2;
         goOn = false;
-    } else if (fromtop + userH * 2 - 11 >= (window.innerHeight - userH) && tuchCount == wallcolor) {
+    } else if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH -speed) && tuchCount == wallcolor) {
         if (runsame) {
-            // console.log("window height: " + (window.innerHeight - userH),"fromtop: " + (fromtop + userH * 2 - 11));
+            console.log("window height: " + (window.innerHeight - userH),"fromtop: " + (fromtop + userH * 2 - 11));
             getsScore();
         }
     } else if (fromtop >= (window.innerHeight - userH) && tuchCount === wallcolor) {
