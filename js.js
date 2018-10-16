@@ -115,8 +115,9 @@ function logic() {
         gower.play();
         speed = 2;
         goOn = false;
-    } else if (fromtop + userH * 2 - 10 >= (window.innerHeight - userH) && tuchCount == wallcolor) {
+    } else if (fromtop + userH * 2 - 11 >= (window.innerHeight - userH) && tuchCount == wallcolor) {
         if (runsame) {
+            // console.log("window height: " + (window.innerHeight - userH),"fromtop: " + (fromtop + userH * 2 - 11));
             getsScore();
         }
     } else if (fromtop >= (window.innerHeight - userH) && tuchCount === wallcolor) {
@@ -251,7 +252,8 @@ function Triangular(x, y, t) {
     this.t = t;
     this.angle = 0;
     this.r = 0;
-    this.direction = random(-0.1, 0.1);
+    this.dx = random(-0.1, 0.1);
+    this.dy = random(-0.1, 0.1);
     this.size = random(2, 10);
 
     this.display = function () {
@@ -273,8 +275,15 @@ function Triangular(x, y, t) {
         this.r++;
     };
     this.update = function () {
-        this.x = this.x + this.direction;
-        this.y = this.y + this.direction;
+        if (this.x > window.innerWidth || this.x < 0 ){
+            this.dx = -this.dx;
+        }
+        if (this.y > window.innerWidth || this.y < 0) {
+            this.dy = -this.dy;
+        }
+        this.x = this.x + this.dx;
+        this.y = this.y + this.dy;
+
     };
 
 };
@@ -284,7 +293,8 @@ function Coub(x, y, t) {
     this.y = y;
     this.t = t;
     this.r = 0;
-    this.direction = random(-0.1, 0.1);
+    this.dx = random(-0.1, 0.1);
+    this.dy = random(-0.1, 0.1);
     this.diameter = random(4, 20);
 
     this.display = function () {
@@ -300,8 +310,14 @@ function Coub(x, y, t) {
         this.r++;
     };
     this.update = function () {
-        this.x = this.x + this.direction;
-        this.y = this.y + this.direction;
+       if (this.x > window.innerWidth || this.x < 0) {
+           this.dx = -this.dx;
+       }
+       if (this.y > window.innerWidth || this.y < 0) {
+           this.dy = -this.dy;
+       }
+       this.x = this.x + this.dx;
+       this.y = this.y + this.dy;
     };
 
 };
@@ -311,7 +327,8 @@ function Ex(x, y, t) {
     this.y = y;
     this.t = t;
     this.r = 0;
-    this.direction = random(-0.1, 0.1);
+    this.dx = random(-0.1, 0.1);
+    this.dy = random(-0.1, 0.1);
     this.diameter = random(4, 20);
 
     this.display = function () {
@@ -328,8 +345,14 @@ function Ex(x, y, t) {
         this.r++;
     };
     this.update = function () {
-        this.x = this.x + this.direction;
-        this.y = this.y + this.direction;
+        if (this.x > window.innerWidth || this.x < 0) {
+            this.dx = -this.dx;
+        }
+        if (this.y > window.innerWidth || this.y < 0) {
+            this.dy = -this.dy;
+        }
+        this.x = this.x + this.dx;
+        this.y = this.y + this.dy;
     };
 
 };
